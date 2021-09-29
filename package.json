@@ -1,0 +1,41 @@
+{
+  "name": "moleculer-ioc",
+  "version": "0.0.1",
+  "description": "IOC support for Moleculer via Inversify",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": "git@github.com:csibbach/moleculer-ioc.git",
+  "author": "csibbach <charlie@hypernetlabs.io>",
+  "license": "MIT",
+  "private": false,
+  "keywords": ["Moleculer", "IOC", "Dependency Injection"],
+  "dependencies": {
+    "inversify": "^5.1.1",
+    "moleculer": "^0.14.17"
+  },
+  "files": ["lib/**/*"],
+  "devDependencies": {
+    "@types/node": "^16.10.2",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-config-standard-react": "^11.0.1",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "format-package": "^6.1.0",
+    "typescript": "^4.4.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier . --write && yarn format:pkg",
+    "format:pkg": "format-package -w",
+    "prepare" : "yarn build",
+    "prepublishOnly" : "yarn test && yarn format",
+    "preversion" : "yarn format",
+    "version" : "yarn format && git add -A src",
+    "postversion" : "git push && git push --tags"
+  }
+}
