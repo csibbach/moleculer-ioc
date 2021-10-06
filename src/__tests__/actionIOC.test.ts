@@ -1,13 +1,11 @@
 test("Basic Test", () => {
+  // Arrange
 
-    // Arrange
+  // Act
 
-    // Act
-
-    // Assert
-    expect(1).toBe(1);
-  });
-
+  // Assert
+  expect(1).toBe(1);
+});
 
 // Const InjectableClassType = Symbol.for("InjectableClass");
 // Class InjectableClass {
