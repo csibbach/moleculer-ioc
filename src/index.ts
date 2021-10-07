@@ -32,6 +32,7 @@ export abstract class IOCService<S = ServiceSettingSchema> extends Service<S> {
     const mergedSchema = Service.mergeSchemas(
       {
         created: () => {
+          this.logger.debug("Binding logger");
           this.container
             .bind<LoggerInstance>(LoggerType)
             .toConstantValue(this.logger);
