@@ -29,6 +29,7 @@ export abstract class IOCService<S = ServiceSettingSchema> extends Service<S> {
 
   protected parseServiceSchema(schema: ServiceSchema<S>): void {
     // Hook into the created lifecycle event
+    this.logger.debug("Merging schemas");
     const mergedSchema = Service.mergeSchemas(
       {
         created: () => {
@@ -40,6 +41,8 @@ export abstract class IOCService<S = ServiceSettingSchema> extends Service<S> {
       } as ServiceSchema<S>,
       schema
     );
+
+    this.logger.debug(mergedSchema);
 
     super.parseServiceSchema(mergedSchema as ServiceSchema<S>);
   }
