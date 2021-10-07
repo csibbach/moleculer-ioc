@@ -8,3 +8,10 @@ const interestingService = this.container.get<IMyInterestingBusinessLayerService
 
 return await interstingService.interestingThing();
 ```
+
+## Automatic Injectables
+moleculer-ioc binds a few objects into the container automatically.
+- ServiceBroker: the service broker can be injected via `@inject(ServiceBrokerType)`
+- Logger: the logger instance can be retrieved via `@inject(LoggerType)`
+
+The context is not available via injection, because it changes per call, and this is not compatible with Singleton scope injections.

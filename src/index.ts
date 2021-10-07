@@ -1,7 +1,13 @@
 import { Container, ContainerModule } from "inversify";
-import { Service, ServiceBroker } from "moleculer";
+import {
+  LoggerInstance,
+  Service,
+  ServiceBroker,
+  ServiceSchema,
+  ServiceSettingSchema,
+} from "moleculer";
 
-export abstract class IOCService extends Service {
+export abstract class IOCService<S = ServiceSettingSchema> extends Service<S> {
   protected container: Container;
 
   public constructor(public broker: ServiceBroker) {
@@ -20,6 +26,23 @@ export abstract class IOCService extends Service {
   }
 
   public abstract modules(): ContainerModule[];
+
+  protected parseServiceSchema(schema: ServiceSchema<S>): void {
+    // Hook into the created lifecycle event
+    const mergedSchema = Service.mergeSchemas(
+      {
+        created: () => {
+          this.container
+            .bind<LoggerInstance>(LoggerType)
+            .toConstantValue(this.logger);
+        },
+      } as ServiceSchema<S>,
+      schema
+    );
+
+    super.parseServiceSchema(mergedSchema as ServiceSchema<S>);
+  }
 }
 
 export const ServiceBrokerType = Symbol.for("ServiceBroker");
+export const LoggerType = Symbol.for("Logger");
