@@ -7,7 +7,7 @@ import {
   ServiceSettingSchema,
 } from "moleculer";
 
-export abstract class IOCService<S = ServiceSettingSchema> extends Service<S> {
+export abstract class IOCService extends Service<ServiceSettingSchema> {
   protected container: Container;
 
   public constructor(public broker: ServiceBroker) {
@@ -27,20 +27,24 @@ export abstract class IOCService<S = ServiceSettingSchema> extends Service<S> {
 
   public abstract modules(): ContainerModule[];
 
-  protected parseServiceSchema(schema: ServiceSchema<S>): void {
+  protected parseServiceSchema(
+    schema: ServiceSchema<ServiceSettingSchema>
+  ): void {
     // Hook into the created lifecycle event
-    const mergedSchema = Service.mergeSchemas(
+    const mergedSchema = this.mergeSchemas(
       {
         created: () => {
           this.container
             .bind<LoggerInstance>(LoggerType)
             .toConstantValue(this.logger);
         },
-      } as ServiceSchema<S>,
+      },
       schema
     );
 
-    super.parseServiceSchema(mergedSchema as ServiceSchema<S>);
+    super.parseServiceSchema(
+      mergedSchema as ServiceSchema<ServiceSettingSchema>
+    );
   }
 }
 
