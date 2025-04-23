@@ -1,6 +1,6 @@
 {
   "name": "moleculer-ioc",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "IOC support for Moleculer via Inversify",
   "license": "MIT",
   "private": false,
@@ -28,7 +28,7 @@
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
   "types": "lib/index.d.ts",
-  "dependencies": {
+  "peerDependencies": {
     "inversify": "^7.5.1",
     "moleculer": "^0.14.29",
     "reflect-metadata": "^0.2.2"
